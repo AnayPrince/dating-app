@@ -16,21 +16,13 @@ dotenv.config();
 
 const app = express();
 
-// ✅ CORS
-const allowedOrigins = [
-  "http://localhost:3000",
-  "https://dating-gtoxx6vf9-anayprinces-projects.vercel.app"
-];
-
+// 🔥 SIMPLE & WORKING CORS (FINAL FIX)
 app.use(cors({
-  origin: (origin, callback) => {
-    if (!origin) return callback(null, true);
-    if (allowedOrigins.includes(origin)) return callback(null, true);
-    return callback(new Error("CORS not allowed"));
-  },
+  origin: true,   // ✅ auto allow all origins
   credentials: true
 }));
 
+// ✅ preflight fix
 app.options("*", cors());
 
 // ✅ middleware
@@ -54,9 +46,10 @@ mongoose.connect(process.env.MONGO_URI)
 // ✅ server + socket
 const server = http.createServer(app);
 
+// 🔥 SOCKET CORS FIX
 const io = new Server(server, {
   cors: {
-    origin: allowedOrigins,
+    origin: true,   // ✅ same fix here
     methods: ["GET", "POST"],
     credentials: true
   }
