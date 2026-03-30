@@ -25,9 +25,16 @@
   const app = express();
 
   // ✅ middleware
+  // app.use(cors({
+  //   origin: "http://localhost:3000",
+  // }));
   app.use(cors({
-    origin: "http://localhost:3000",
-  }));
+  origin: [
+    "http://localhost:3000",
+    "https://dating-gtoxx6vf9-anayprinces-projects.vercel.app"
+  ],
+  credentials: true
+}));
   app.use(express.json());
 
   // ✅ routes
