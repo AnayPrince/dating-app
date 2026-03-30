@@ -256,28 +256,40 @@ const login = async () => {
     const res = await API.post("/auth/login", {
       email,
       password,
-      token: otp, // OTP if entered
+      token: otp,
     });
 
     console.log("LOGIN RESPONSE:", res.data);
 
-    // 🔐 STEP 1: CHECK 2FA REQUIRED
     if (res.data?.require2FA) {
       setTwoFA(true);
       toast("Enter 2FA code 🔐");
       return;
     }
 
-    // ✅ STEP 2: LOGIN SUCCESS
+    // 🔥 FIX START
+    const token =
+      res.data.token ||
+      res.data.accessToken ||
+      res.data?.data?.token;
+
+    if (!token) {
+      console.log("❌ Token missing:", res.data);
+      toast.error("Token not received ❌");
+      return;
+    }
+    // 🔥 FIX END
+
     localStorage.setItem("user", JSON.stringify(res.data.user));
-    localStorage.setItem("token", res.data.token);
+    localStorage.setItem("token", token);
+
+    console.log("✅ SAVED TOKEN:", localStorage.getItem("token"));
 
     toast.success("Login successful 🎉");
     navigate("/dashboard");
 
   } catch (err) {
     console.log(err);
-
     toast.error(err.response?.data?.message || "Login failed ❌");
   }
 };
