@@ -8,8 +8,9 @@
 import { io } from "socket.io-client";
 
 const socket = io("https://dating-backend-d40u.onrender.com", {
-  transports: ["websocket"], // 🔥 IMPORTANT FIX
-  withCredentials: true,
+  transports: ["websocket"], // MUST
+  forceNew: true,
+  reconnectionAttempts: 5,
 });
 
 export default socket;

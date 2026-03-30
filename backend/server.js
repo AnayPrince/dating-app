@@ -49,10 +49,11 @@ const server = http.createServer(app);
 // 🔥 SOCKET CORS FIX
 const io = new Server(server, {
   cors: {
-    origin: true,   // ✅ same fix here
+    origin: true,
     methods: ["GET", "POST"],
     credentials: true
-  }
+  },
+  transports: ["websocket"] // MUST ADD
 });
 
 socketHandler(io);
