@@ -2,8 +2,8 @@
   "short_name": "Matchify",
   "name": "Matchify - Find your perfect match",
   "icons": [],
-  "start_url": ".",
+  "start_url": "/",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "#6d28d9",
+  "background_color": "#0a0a0a"
 }
