@@ -5,13 +5,15 @@
 
 // export default socket;
 
+// socket.js - frontend
 import { io } from "socket.io-client";
 
 const socket = io("https://dating-backend-d40u.onrender.com", {
-  transports: ["websocket", "polling"], // ✅ polling bhi add karo
+  transports: ["websocket", "polling"],
   forceNew: true,
   reconnectionAttempts: 5,
-  withCredentials: true, // ✅ ye add karo
+  withCredentials: true,
+  autoConnect: false, // ✅ YE ADD KARO - login ke baad manually connect hoga
 });
 
 export default socket;
